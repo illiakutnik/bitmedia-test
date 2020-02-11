@@ -11,8 +11,6 @@ const usersStatisticData = JSON.parse(
 )
 
 const totalUser = usersData.length
-// console.log(users.length)
-// console.log(users_statistic.length)
 
 app.get('/users', (req, res) => {
 	const amount = parseInt(req.query.amount)
@@ -43,6 +41,42 @@ app.get('/users', (req, res) => {
 		return newEl
 	})
 	res.json(usersRes)
+})
+
+app.get('/user/:id', (req, res) => {
+	const userId = parseInt(req.params.id)
+	const reqStart = req.query.start
+	const reqEnd = req.query.end
+
+	const user = usersData.find(el => el.id === userId)
+
+	if (!user) {
+		res.json({
+			error: true,
+			message: "User doesn't exist"
+		})
+	}
+
+	let days = usersStatisticData.filter(el => el.user_id === userId)
+	let startDate = days[0].date
+	let endDate = days[days.length - 1].date
+
+	const resDays = () => {
+		if (!reqStart && !reqEnd) {
+			return days.slice(0, 7)
+		}
+		let startIndex = days.findIndex(el => el.date === reqStart)
+		let endIndex = days.findIndex(el => el.date === reqEnd) + 1
+		return days.slice(startIndex, endIndex)
+	}
+
+	res.json({
+		startDate,
+		endDate,
+		firstName: user.first_name,
+		lastName: user.last_name,
+		days: resDays()
+	})
 })
 
 const PORT = process.env.PORT || 5000
