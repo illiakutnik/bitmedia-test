@@ -1,8 +1,4 @@
-// .landing {
-// 	background: $textButtonColor;
-// }
 .header {
-	background: linear-gradient(92.09deg, #255d8b 2.29%, #3a80ba 96.79%);
 	background-image: url('img/Rectangle_8.png');
 	min-height: 655px;
 	color: white;
@@ -145,7 +141,7 @@
 	margin-top: 90px;
 	padding: 0 130px;
 	height: 390px;
-	background: linear-gradient(93.19deg, #255d8b 2.29%, #3a80ba 96.79%);
+	background: $background;
 	color: white;
 	&__info {
 		display: flex;
@@ -201,14 +197,11 @@
 }
 
 .footer {
-	background: linear-gradient(95.82deg, #255d8b 1.6%, #3a80ba 96.44%);
 	background-image: url('img/Rectangle_54.png');
-	// width: 100%;
 	min-height: 183.46px;
 	color: white;
 	display: flex;
 	flex-direction: column;
-	// justify-content: space-between;
 	&__input {
 		align-self: center;
 		border-radius: 10px;
@@ -224,7 +217,6 @@
 			outline: none;
 			color: $greyTextColor;
 			padding-left: 20px;
-			// margin-top: 25px;
 		}
 		button {
 			@include button;
@@ -233,7 +225,6 @@
 			width: 176px;
 			color: white;
 			margin-right: 3px;
-			// margin-left: -180px;
 		}
 	}
 
@@ -241,7 +232,6 @@
 		display: flex;
 		justify-content: space-between;
 		padding: 35px 130px 0 130px;
-		// flex-wrap: wrap;
 		&-box {
 			text-align: center;
 			h3 {
