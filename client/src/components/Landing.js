@@ -13,7 +13,7 @@ import Line from '../style/img/Line.png'
 
 const Landing = () => {
 	return (
-		<div className='landing'>
+		<>
 			<header className='header'>
 				<div className='header__main'>
 					<h2>AppCo</h2>
@@ -164,7 +164,7 @@ const Landing = () => {
 					</div>
 				</div>
 			</footer>
-		</div>
+		</>
 	)
 }
 
