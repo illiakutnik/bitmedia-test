@@ -2,13 +2,17 @@
 	"name": "bitmedia-labs-test",
 	"version": "1.0.0",
 	"description": "",
+	"engines": {
+		"node": "12.14.0",
+		"npm": "6.13.4"
+	},
 	"main": "server.js",
 	"scripts": {
 		"start": "node server",
 		"server": "nodemon server",
 		"client": "npm start --prefix client",
 		"dev": "concurrently \"npm run server\" \"npm run client\"",
-		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm install node-sass --prefix client && npm run build --prefix client",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"author": "",
