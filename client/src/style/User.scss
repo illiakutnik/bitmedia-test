@@ -1,0 +1,51 @@
+.user {
+	padding: 16px 130px 24px 130px;
+	&__nav {
+		display: flex;
+		&-main {
+			color: #cccccc;
+			margin: 0 7px 0 0;
+			cursor: pointer;
+		}
+		&-current {
+			margin: 0;
+			color: $mainColor;
+		}
+	}
+	h2 {
+		font-style: normal;
+		font-weight: bold;
+		font-size: 32px;
+		margin: 24px 0 16px 0;
+	}
+	h3 {
+		font-style: normal;
+		font-weight: bold;
+		font-size: 24px;
+	}
+	&__toolbar {
+		display: flex;
+		align-items: center;
+		p {
+			font-weight: bold;
+			margin: 0;
+		}
+		select {
+			outline: none;
+			margin: 0 5px 0 5px;
+			background: $mainColor;
+			border-radius: 5px;
+			color: white;
+		}
+	}
+}
+
+.chart {
+	min-width: 755px;
+}
+
+@media screen and (max-width: 1100px) {
+	.user {
+		padding: 16px 30px 24px 30px;
+	}
+}

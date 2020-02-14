@@ -1,5 +1,6 @@
 .list {
 	padding: 16px 130px 24px 130px;
+	min-width: 800px;
 	&__nav {
 		display: flex;
 		&-main {
@@ -66,6 +67,14 @@
 			cursor: pointer;
 		}
 	}
+	// &-container {
+	// 	footer {
+	// 		min-width: 800px;
+	// 	}
+	// 	header {
+	// 		min-width: 800px;
+	// 	}
+	// }
 }
 
 .pagination {
@@ -114,5 +123,19 @@
 	&__disable {
 		display: none;
 		cursor: none;
+	}
+}
+
+@media screen and (max-width: 1100px) {
+	.list {
+		padding: 16px 30px 24px 30px;
+		table {
+			th {
+				font-size: 12px;
+			}
+			td {
+				font-size: 12px;
+			}
+		}
 	}
 }

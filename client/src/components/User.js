@@ -1,22 +1,39 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../context/appContext'
 import Chart from 'react-apexcharts'
 
 import Header from './Header'
 import Footer from './Footer'
 
-const User = ({ location }) => {
-	const { getUser, user } = useContext(AppContext)
+const User = ({ location, history }) => {
+	const {
+		getUser,
+		user,
+		dateStart,
+		setDateStart,
+		dateEnd,
+		setDateEnd,
+		cleanDates
+	} = useContext(AppContext)
+
 	useEffect(() => {
-		getUser(location.pathname.slice(6))
+		return () => {
+			cleanDates()
+		}
 	}, [])
 
-	console.log(user)
+	useEffect(() => {
+		if (dateStart || dateEnd) {
+			getUser(location.pathname.slice(6), dateStart, dateEnd)
+		} else {
+			getUser(location.pathname.slice(6))
+		}
+	}, [dateStart, dateEnd])
 
 	let dates = []
 	let clicks = []
 	let page_views = []
-	if (user) {
+	if (user && !user.error) {
 		for (let day of user.days) {
 			dates.push(day.date)
 			page_views.push(day.page_views)
@@ -69,23 +86,74 @@ const User = ({ location }) => {
 			<Header />
 			{!user ? (
 				<p>loading...</p>
+			) : user && user.error ? (
+				<div className='error'>
+					<h2>User doesn't exist</h2>
+					<button onClick={() => history.push('/users')}>Go back</button>
+				</div>
 			) : (
-				<div>
-					<div>
+				<div className='user'>
+					<div className='user__nav'>
+						<p className='user__nav-main' onClick={() => history.push('/')}>
+							Main page >
+						</p>
+						<p
+							className='user__nav-main'
+							onClick={() => history.push('/users')}
+						>
+							User statistics >
+						</p>
+						<p className='user__nav-current'>{` ${user.firstName} ${user.lastName}`}</p>
+					</div>
+					<h2>{`${user.firstName} ${user.lastName}`}</h2>
+					<div className='user__toolbar'>
+						<p>Show data from</p>
+
+						<select
+							value={dateStart ? dateStart : ''}
+							onChange={e => setDateStart(e.target.value)}
+						>
+							{user.dates.slice(0, user.dates.indexOf(dateEnd)).map((el, i) => {
+								return (
+									<option key={i} value={el}>
+										{el}
+									</option>
+								)
+							})}
+						</select>
+						<p> to </p>
+						<select
+							value={dateEnd ? dateEnd : ''}
+							onChange={e => setDateEnd(e.target.value)}
+						>
+							{user.dates
+								.slice(user.dates.indexOf(dateStart) + 1)
+								.map((el, i) => {
+									return (
+										<option key={i} value={el}>
+											{el}
+										</option>
+									)
+								})}
+						</select>
+					</div>
+					<div className='chart'>
+						<h3>Clicks</h3>
 						<Chart
 							options={clicksData.options}
 							series={clicksData.series}
 							type='line'
-							width='1140'
+							width='100%'
 							height='320'
 						/>
 					</div>
-					<div>
+					<div className='chart'>
+						<h3>Page views</h3>
 						<Chart
 							options={pageViewsData.options}
 							series={pageViewsData.series}
 							type='line'
-							width='1140'
+							width='100%'
 							height='320'
 						/>
 					</div>

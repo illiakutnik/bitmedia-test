@@ -55,30 +55,32 @@ app.get('/user/:id', (req, res) => {
 	if (!user) {
 		res.json({
 			error: true,
-			message: "User doesn't exist"
+			message: "User with this ID doesn't exist"
+		})
+	} else {
+		let days = usersStatisticData.filter(el => el.user_id === userId)
+
+		const resDays = () => {
+			if (!reqStart && !reqEnd) {
+				return days.slice(0, 7)
+			}
+			let startIndex = days.findIndex(el => el.date === reqStart)
+			let endIndex = days.findIndex(el => el.date === reqEnd) + 1
+			return days.slice(startIndex, endIndex)
+		}
+
+		let startDate = reqStart ? reqStart : days[0].date
+		let endDate = reqEnd ? reqEnd : days[6].date
+
+		res.json({
+			startDate,
+			endDate,
+			dates: days.map(el => el.date),
+			firstName: user.first_name,
+			lastName: user.last_name,
+			days: resDays()
 		})
 	}
-
-	let days = usersStatisticData.filter(el => el.user_id === userId)
-	let startDate = days[0].date
-	let endDate = days[days.length - 1].date
-
-	const resDays = () => {
-		if (!reqStart && !reqEnd) {
-			return days.slice(0, 7)
-		}
-		let startIndex = days.findIndex(el => el.date === reqStart)
-		let endIndex = days.findIndex(el => el.date === reqEnd) + 1
-		return days.slice(startIndex, endIndex)
-	}
-
-	res.json({
-		startDate,
-		endDate,
-		firstName: user.first_name,
-		lastName: user.last_name,
-		days: resDays()
-	})
 })
 
 const PORT = process.env.PORT || 5000
