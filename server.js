@@ -15,8 +15,6 @@ const totalUser = usersData.length
 app.get('/users', (req, res) => {
 	const amount = parseInt(req.query.amount)
 	const page = parseInt(req.query.page)
-	console.log(page)
-	console.log(amount)
 
 	const start = amount * page - amount
 	const end = start + amount
