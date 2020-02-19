@@ -12,7 +12,7 @@ const AppContextProvider = props => {
 
 	const getUsers = async (amount, page) => {
 		try {
-			const res = await axios.get(`/users?amount=${amount}&page=${page}`)
+			const res = await axios.get(`/api/users?amount=${amount}&page=${page}`)
 			setUsers(res.data)
 		} catch (error) {
 			alert(error.message)
@@ -24,9 +24,9 @@ const AppContextProvider = props => {
 		try {
 			let res
 			if (!start || !end) {
-				res = await axios.get(`/user/${id}`)
+				res = await axios.get(`/api/user/${id}`)
 			} else {
-				res = await axios.get(`/user/${id}?start=${start}&end=${end}`)
+				res = await axios.get(`/api/user/${id}?start=${start}&end=${end}`)
 			}
 			if (res.data.error) {
 				setUser(res.data)

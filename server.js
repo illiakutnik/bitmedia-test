@@ -13,7 +13,7 @@ const usersStatisticData = JSON.parse(
 
 const totalUser = usersData.length
 
-app.get('/users', (req, res) => {
+app.get('/api/users', (req, res) => {
 	const amount = parseInt(req.query.amount)
 	const page = parseInt(req.query.page)
 
@@ -44,7 +44,7 @@ app.get('/users', (req, res) => {
 	res.json(usersRes)
 })
 
-app.get('/user/:id', (req, res) => {
+app.get('/api/user/:id', (req, res) => {
 	const userId = parseInt(req.params.id)
 	const reqStart = req.query.start
 	const reqEnd = req.query.end
